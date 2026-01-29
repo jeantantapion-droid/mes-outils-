@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compteur de mots - SmartTools</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            text-align: center;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+
+        .stats {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .stats div {
+            margin: 8px 0;
+            padding: 8px;
+            background: #f8f9fc;
+            border-radius: 5px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 15px;
+            background: #222;
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📝 Compteur de mots</h1>
+    <p>Comptez vos mots, caractères et phrases instantanément</p>
+</header>
+
+<div class="container">
+    <textarea id="textInput" placeholder="Collez ou écrivez votre texte ici..."></textarea>
+
+    <div class="stats">
+        <div>📄 Mots : <span id="wordCount">0</span></div>
+        <div>🔤 Caractères : <span id="charCount">0</span></div>
+        <div>✏️ Caractères (sans espaces) : <span id="charNoSpace">0</span></div>
+        <div>📝 Phrases : <span id="sentenceCount">0</span></div>
+    </div>
+</div>
+
+<footer>
+    © 2026 SmartTools
+</footer>
+
+<script>
+    const textInput = document.getElementById("textInput");
+
+    textInput.addEventListener("input", () => {
+        const text = textInput.value.trim();
+
+        // Compteur de mots
+        const words = text.length > 0 ? text.split(/\s+/).length : 0;
+
+        // Caractères avec espaces
+        const characters = textInput.value.length;
+
+        // Caractères sans espaces
+        const charactersNoSpace = textInput.value.replace(/\s/g, "").length;
+
+        // Compteur de phrases (approximation)
+        const sentences = text.length > 0 ? text.split(/[.!?]+/).filter(s => s.trim().length > 0).length : 0;
+
+        document.getElementById("wordCount").textContent = words;
+        document.getElementById("charCount").textContent = characters;
+        document.getElementById("charNoSpace").textContent = charactersNoSpace;
+        document.getElementById("sentenceCount").textContent = sentences;
+    });
+</script>
+
+</body>
+</html>

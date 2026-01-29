@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de couleurs - SmartTools</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            text-align: center;
+            background: #f4f6f9;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .container {
+            margin: 40px auto;
+            max-width: 400px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .color-box {
+            height: 150px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+        }
+
+        .color-code {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background: #4e73df;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2e59d9;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 15px;
+            background: #222;
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎨 Générateur de couleurs</h1>
+    <p>Obtenez des couleurs aléatoires et leur code HEX</p>
+</header>
+
+<div class="container">
+    <div class="color-box" id="colorBox"></div>
+    <div class="color-code" id="colorCode">#FFFFFF</div>
+    <button onclick="generateColor()">Générer une couleur</button>
+</div>
+
+<footer>
+    © 2026 SmartTools
+</footer>
+
+<script>
+    function generateColor() {
+        const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        
+        document.getElementById("colorBox").style.backgroundColor = randomColor;
+        document.getElementById("colorCode").textContent = randomColor;
+    }
+
+    // Génère une couleur au chargement de la page
+    generateColor();
+</script>
+
+</body>
+</html>

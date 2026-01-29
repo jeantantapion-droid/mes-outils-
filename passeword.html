@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de mot de passe - SmartTools</title>
+    <link rel="stylesheet" href="style.css">
+  <style>
+  .tool-container {
+    padding: 40px 20px;
+}
+
+.password-box {
+    margin-bottom: 20px;
+}
+
+.password-box input {
+    width: 250px;
+    padding: 10px;
+    font-size: 1rem;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.password-box button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background: #1cc88a;
+    color: white;
+    cursor: pointer;
+}
+
+.password-box button:hover {
+    background: #17a673;
+}
+
+.options {
+    margin-top: 20px;
+    display: inline-block;
+    text-align: left;
+}
+
+.options label {
+    display: block;
+    margin: 10px 0;
+    font-size: 0.95rem;
+}
+  .copy-btn {
+    background: #36b9cc;
+    margin-left: 5px;
+    margin-top: 5 px
+}
+
+.copy-btn:hover {
+    background: #2c9faf;
+}
+
+.copy-message {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: green;
+}
+  </style>
+</head>
+<body>
+
+    <header>
+        <h1>🔐 Générateur de mot de passe</h1>
+        <p>Créez un mot de passe sécurisé en quelques secondes</p>
+    </header>
+
+    <section class="tool-container">
+        <div class="password-box">
+            <input type="text" id="password" placeholder="Votre mot de passe..." readonly>
+            <button onclick="generatePassword()">Générer</button>
+            <button onclick="copyPassword()" class="copy-btn">Copier</button>
+        </div>
+
+<p id="copy-message" class="copy-message"></p>
+        
+
+        <div class="options">
+            <label>
+                Longueur :
+                <input type="number" id="length" value="12" min="4" max="30">
+            </label>
+
+            <label>
+                <input type="checkbox" id="uppercase" checked>
+                Lettres majuscules
+            </label>
+
+            <label>
+                <input type="checkbox" id="numbers" checked>
+                Chiffres
+            </label>
+
+            <label>
+                <input type="checkbox" id="symbols">
+                Symboles
+            </label>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 SmartTools</p>
+    </footer>
+
+    <script>function generatePassword() {
+    const length = document.getElementById("length").value;
+    const includeUppercase = document.getElementById("uppercase").checked;
+    const includeNumbers = document.getElementById("numbers").checked;
+    const includeSymbols = document.getElementById("symbols").checked;
+
+    const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+    const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numberChars = "0123456789";
+    const symbolChars = "!@#$%^&*()_+[]{}|;:,.<>?";
+
+    let allChars = lowerChars;
+
+    if (includeUppercase) allChars += upperChars;
+    if (includeNumbers) allChars += numberChars;
+    if (includeSymbols) allChars += symbolChars;
+
+    let password = "";
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * allChars.length);
+        password += allChars[randomIndex];
+    }
+
+    document.getElementById("password").value = password;
+}
+  function copyPassword() {
+    const passwordField = document.getElementById("password");
+    const message = document.getElementById("copy-message");
+
+    if (passwordField.value === "") {
+        message.style.color = "red";
+        message.textContent = "Générez d'abord un mot de passe !";
+        return;
+    }
+
+    passwordField.select();
+    passwordField.setSelectionRange(0, 99999); // Pour mobile
+
+    navigator.clipboard.writeText(passwordField.value)
+        .then(() => {
+            message.style.color = "green";
+            message.textContent = "Mot de passe copié ! ✅";
+        })
+        .catch(() => {
+            message.style.color = "red";
+            message.textContent = "Erreur lors de la copie ❌";
+        });
+}
+
+</script>
+</body>
+</html>
